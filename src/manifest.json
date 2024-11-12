@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Auto-Close Old Tabs",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Automatically closes inactive tabs after a specified time period",
   "permissions": ["tabs", "storage", "alarms"],
   "action": {
