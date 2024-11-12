@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Background Circle with Gradient -->
+  <defs>
+    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5"/>
+      <stop offset="100%" style="stop-color:#818CF8"/>
+    </linearGradient>
+
+    <!-- Shine Effect -->
+    <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.2)"/>
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0)"/>
+    </linearGradient>
+
+    <!-- Shadow Effect -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Main Circle -->
+  <circle cx="64" cy="64" r="60" fill="url(#backgroundGradient)" filter="url(#dropShadow)"/>
+
+  <!-- Shine Overlay -->
+  <circle cx="64" cy="64" r="60" fill="url(#shineGradient)"/>
+
+  <!-- Tab Icons - Stacked and Rotating -->
+  <g transform="translate(64,64)">
+    <!-- Back Tab -->
+    <g transform="rotate(-15)">
+      <rect x="-25" y="-32" width="50" height="40" rx="6" fill="#E0E7FF" opacity="0.6"/>
+    </g>
+
+    <!-- Middle Tab -->
+    <g transform="rotate(-5)">
+      <rect x="-25" y="-32" width="50" height="40" rx="6" fill="#E0E7FF" opacity="0.8"/>
+    </g>
+
+    <!-- Front Tab -->
+    <rect x="-25" y="-32" width="50" height="40" rx="6" fill="#ffffff"/>
+
+    <!-- Close Arrow -->
+    <g transform="translate(0,15)">
+      <path d="M-15,-5 L0,10 L15,-5"
+            stroke="#4F46E5"
+            stroke-width="6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"/>
+    </g>
+  </g>
+</svg>

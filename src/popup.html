@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            width: 360px;
+            background: #f8fafc;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header img {
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .settings-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .setting-row:not(:last-child) {
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        /* Modern Toggle Switch */
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #3b82f6;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        /* Dropdown Style */
+        select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            background-color: white;
+            font-size: 14px;
+            color: #334155;
+            cursor: pointer;
+            outline: none;
+            min-width: 120px;
+        }
+
+        select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+
+        .status {
+            font-size: 13px;
+            color: #64748b;
+            padding: 12px 16px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        /* Recently Closed Tabs Section */
+        .recent-tabs-section {
+            background: white;
+            border-radius: 8px;
+            margin-top: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .recent-tabs-header {
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clear-all-btn {
+            font-size: 12px;
+            color: #64748b;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .clear-all-btn:hover {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .recent-tab-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .recent-tab-item:hover {
+            background-color: #f8fafc;
+        }
+
+        .recent-tab-item:last-child {
+            border-bottom: none;
+        }
+
+        .recent-tab-favicon {
+            width: 16px;
+            height: 16px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .recent-tab-content {
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .recent-tab-title {
+            font-size: 13px;
+            color: #334155;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .recent-tab-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .recent-tab-badge {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .badge-auto {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .badge-manual {
+            background-color: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        .empty-state {
+            padding: 24px;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <img src="icons/icon48.png" alt="Logo">
+    <h1>Auto-Close Old Tabs</h1>
+</div>
+
+<div class="container">
+    <div class="settings-card">
+        <div class="setting-row">
+            <span class="setting-label">Enable Auto-Close</span>
+            <label class="toggle">
+                <input type="checkbox" id="enabled">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="setting-row">
+            <span class="setting-label">Close tabs after</span>
+            <select id="timeout">
+                <option value="60">1 hour</option>
+                <option value="120">2 hours</option>
+                <option value="240">4 hours</option>
+                <option value="480">8 hours</option>
+                <option value="1440">24 hours</option>
+                <option value="2880">2 days</option>
+                <option value="10080">1 week</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="status" class="status">
+        Tabs will close after 1 minute of inactivity
+    </div>
+
+    <div class="recent-tabs-section">
+        <div class="recent-tabs-header">
+            Recently Closed Tabs
+            <button class="clear-all-btn" id="clearAll">Clear All</button>
+        </div>
+        <div id="recentTabsList">
+            <!-- Example tab item -->
+            <div class="recent-tab-item">
+                <img class="recent-tab-favicon" src="icons/icon16.png" alt="">
+                <div class="recent-tab-content">
+                    <div class="recent-tab-title">Example Tab Title</div>
+                    <div class="recent-tab-meta">
+                        <span>2 minutes ago</span>
+                        <span class="recent-tab-badge badge-auto">Auto</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Empty state -->
+            <div class="empty-state">
+                No recently closed tabs
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
